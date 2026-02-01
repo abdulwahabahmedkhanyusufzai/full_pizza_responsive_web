@@ -33,38 +33,36 @@ const Login = () => {
     };
 
     return (
-        <section className="section" style={{ paddingTop: "120px", display: "flex", justifyContent: "center" }}>
-            <div className="contact__container container">
-                <div className="contact__content">
-                    <h2 className="section__title">Login</h2>
-                    <form onSubmit={handleSubmit} className="contact__form" style={{ maxWidth: "400px", margin: "0 auto" }}>
-                        <div className="contact__inputs">
-                            <input
-                                type="email"
-                                placeholder="Email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                className="contact__input"
-                                required
-                            />
-                            <input
-                                type="password"
-                                placeholder="Password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                className="contact__input"
-                                required
-                            />
-                        </div>
-                        {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
-                        <button type="submit" className="button" style={{ marginTop: "20px", width: "100%" }}>
-                            Login
-                        </button>
-                        <p style={{ marginTop: "15px", textAlign: "center" }}>
-                            Don't have an account? <a href="/register" style={{ color: "var(--first-color)" }}>Register</a>
-                        </p>
-                    </form>
-                </div>
+        <section className="auth__container">
+            <div className="auth__content">
+                <h2 className="auth__title">Login</h2>
+                <form onSubmit={handleSubmit} className="auth__form">
+                    <div className="auth__inputs">
+                        <input
+                            type="email"
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="auth__input"
+                            required
+                        />
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="auth__input"
+                            required
+                        />
+                    </div>
+                    {error && <p style={{ color: "red", marginTop: "10px", fontSize: "0.875rem" }}>{error}</p>}
+                    <button type="submit" className="button auth__button">
+                        Login
+                    </button>
+                    <p className="auth__switch">
+                        Don't have an account? <a href="/register">Register</a>
+                    </p>
+                </form>
             </div>
         </section>
     );

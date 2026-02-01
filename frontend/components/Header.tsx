@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
 const Header = () => {
     const [showMenu, setShowMenu] = useState(false);
     const [headerShadow, setHeaderShadow] = useState(false);
     const [activeSection, setActiveSection] = useState('home');
+    const { user, logout } = useContext(AuthContext);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -44,32 +47,42 @@ const Header = () => {
     return (
         <header className={`header ${headerShadow ? 'shadow-header' : ''}`} id="header">
             <nav className="nav container">
-                <a href="#" className="nav__logo">
+                <Link to="/" className="nav__logo">
                     <img src="/img/logo-pizza.svg" alt="image" />
                     Pizza
-                </a>
+                </Link>
 
                 <div className={`nav__menu ${showMenu ? 'show-menu' : ''}`} id="nav-menu">
                     <ul className="nav__list">
                         <li>
-                            <a href="#home" className={`nav__link ${activeSection === 'home' ? 'active-link' : ''}`} onClick={closeMenu}>Home</a>
+                            <a href="/#home" className={`nav__link ${activeSection === 'home' ? 'active-link' : ''}`} onClick={closeMenu}>Home</a>
                         </li>
 
                         <li>
-                            <a href="#about" className={`nav__link ${activeSection === 'about' ? 'active-link' : ''}`} onClick={closeMenu}>About Us</a>
+                            <a href="/#about" className={`nav__link ${activeSection === 'about' ? 'active-link' : ''}`} onClick={closeMenu}>About Us</a>
                         </li>
 
                         <li>
-                            <a href="#popular" className={`nav__link ${activeSection === 'popular' ? 'active-link' : ''}`} onClick={closeMenu}>Popular</a>
+                            <a href="/#popular" className={`nav__link ${activeSection === 'popular' ? 'active-link' : ''}`} onClick={closeMenu}>Popular</a>
                         </li>
 
                         <li>
-                            <a href="#products" className={`nav__link ${activeSection === 'products' ? 'active-link' : ''}`} onClick={closeMenu}>Products</a>
+                            <a href="/#products" className={`nav__link ${activeSection === 'products' ? 'active-link' : ''}`} onClick={closeMenu}>Products</a>
                         </li>
 
                         <li>
-                            <a href="#contact" className={`nav__link ${activeSection === 'contact' ? 'active-link' : ''}`} onClick={closeMenu}>Contact</a>
+                            <a href="/#contact" className={`nav__link ${activeSection === 'contact' ? 'active-link' : ''}`} onClick={closeMenu}>Contact</a>
                         </li>
+
+                        {user ? (
+                            <li>
+                                <span className="nav__link" style={{ cursor: 'pointer' }} onClick={() => { logout(); closeMenu(); }}>Logout</span>
+                            </li>
+                        ) : (
+                            <li>
+                                <Link to="/login" className="nav__link" onClick={closeMenu}>Login</Link>
+                            </li>
+                        )}
 
                     </ul>
                     <div className="nav__close" id="nav-close" onClick={closeMenu}>

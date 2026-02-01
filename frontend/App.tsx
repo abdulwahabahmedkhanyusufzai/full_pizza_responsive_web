@@ -1,4 +1,6 @@
 import { useEffect } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { AuthProvider } from './context/AuthContext'
 import Header from './components/Header'
 import Home from './components/Home'
 import About from './components/About'
@@ -8,18 +10,13 @@ import Products from './components/Products'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import ScrollUp from './components/ScrollUp'
+import Login from './components/Login'
+import Register from './components/Register'
 import './App.css'
 
 declare const ScrollReveal: any;
 
-function App() {
-
-  useEffect(() => {
-    fetch("http://localhost:8000/api/menu")
-      .then((res) => res.json())
-      .then((data) => console.log(data));
-  }, []);
-
+function Landing() {
   useEffect(() => {
     // SCROLL REVEAL ANIMATION
     try {
@@ -41,19 +38,38 @@ function App() {
   }, [])
 
   return (
-    <>
-      <Header />
-      <main className="main">
-        <Home />
-        <About />
-        <Popular />
-        <Recipe />
-        <Products />
-        <Contact />
-      </main>
-      <Footer />
-      <ScrollUp />
-    </>
+    <main className="main">
+      <Home />
+      <About />
+      <Popular />
+      <Recipe />
+      <Products />
+      <Contact />
+    </main>
+  )
+}
+
+function App() {
+
+  useEffect(() => {
+    fetch("http://localhost:8000/api/menu")
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  }, []);
+
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+        <Footer />
+        <ScrollUp />
+      </AuthProvider>
+    </BrowserRouter>
   )
 }
 

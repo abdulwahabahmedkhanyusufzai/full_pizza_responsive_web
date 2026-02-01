@@ -27,7 +27,7 @@ const Popular = () => {
 
                 </div>
                 <div className="popular__swiper swiper">
-                    <img src="assests//img/popular-dish.png" alt="image" className="popular__dish" />
+                    <img src="/img/popular-dish.png" alt="image" className="popular__dish" />
                     <div className="swiper-wrapper">
                         <article className="popular__card swiper-slide">
                             <img src="/img/popular-1.png" alt="image" className="popular__image" />

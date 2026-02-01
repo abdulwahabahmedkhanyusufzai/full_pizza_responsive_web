@@ -15,6 +15,12 @@ declare const ScrollReveal: any;
 function App() {
 
   useEffect(() => {
+    fetch("http://localhost:8000/api/menu")
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  }, []);
+
+  useEffect(() => {
     // SCROLL REVEAL ANIMATION
     try {
       const sr = ScrollReveal({

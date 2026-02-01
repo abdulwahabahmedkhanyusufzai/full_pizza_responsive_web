@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  # 1. The Database (PostgreSQL)
+  db:
+    image: postgres:15-alpine
+    container_name: pizza_db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: pizzadb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  # 2. The AI Backend (FastAPI)
+  backend:
+    build: ./backend
+    container_name: pizza_backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      # This connects to the 'db' service defined above
+      DATABASE_URL: postgresql://user:password@db/pizzadb
+
+  # 3. The Frontend (React + Nginx)
+  frontend:
+    build: ./frontend
+    container_name: pizza_frontend
+    ports:
+      - "80:80"  # Access the site at http://localhost
+    depends_on:
+      - backend
+
+# Persist database data so you don't lose it when you restart
+volumes:
+  postgres_data:

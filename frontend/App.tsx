@@ -12,6 +12,7 @@ import Footer from './components/Footer'
 import ScrollUp from './components/ScrollUp'
 import Login from './components/Login'
 import Register from './components/Register'
+import Dashboard from './components/Dashboard'
 import './App.css'
 
 declare const ScrollReveal: any;
@@ -65,6 +66,7 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
         <Footer />
         <ScrollUp />

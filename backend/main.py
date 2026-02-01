@@ -7,8 +7,18 @@ import schemas
 import auth
 from database import engine, get_db
 
-# Create Tables
-models.Base.metadata.create_all(bind=engine)
+import time
+from sqlalchemy.exc import OperationalError
+
+# Create Tables with Retry Logic
+while True:
+    try:
+        models.Base.metadata.create_all(bind=engine)
+        print("Database tables created successfully.")
+        break
+    except OperationalError:
+        print("Database not ready, retrying in 2 seconds...")
+        time.sleep(2)
 
 app = FastAPI()
 

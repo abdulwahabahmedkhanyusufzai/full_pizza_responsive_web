@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         localStorage.setItem("token", token);
         const decoded: any = jwtDecode(token);
         setUser({ email: decoded.sub });
-        navigate("/");
+        navigate("/dashboard");
     };
 
     const logout = () => {
